@@ -1,6 +1,6 @@
-package Services;
+package model;
 
-import Data.Cart;
+import model.Cart;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

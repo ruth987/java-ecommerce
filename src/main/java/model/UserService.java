@@ -1,4 +1,6 @@
-package Services;
+package model;
+
+import model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +14,7 @@ public class UserService {
     }
     public void createUser(User user) throws SQLException {
         String query = "INSERT INTO user(username, password, email) VALUES (?, ?, ?)";
-        PreparedStatement ps = conn.PreparedStatement(query);
+        PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, user.getUsername());
         ps.setString(2, user.getPassword());
         ps.setString(3, user.getEmail());
@@ -23,8 +25,8 @@ public class UserService {
         String query = "UPDATE user SET password = ?, email = ? WHERE username = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, user.getPassword());
-        ps.setString(2, user.getEmail);
-        ps.setString(3, user.getUsername);
+        ps.setString(2, user.getEmail());
+        ps.setString(3, user.getUsername());
         ps.executeUpdate();
 
     }

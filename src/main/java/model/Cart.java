@@ -1,4 +1,4 @@
-package Data;
+package model;
 
 public class Cart {
     private int id;

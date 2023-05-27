@@ -1,6 +1,7 @@
-package Data;
+package model;
 
 public class User {
+    public String getEmail;
     private String username;
     private String password;
     private String email;
