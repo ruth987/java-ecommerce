@@ -5,30 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="Implemented main crud functionalities in service classes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/CartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/SignupController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/LoginModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/SignupModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/CartPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/HomePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/LoginPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/ProductList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/ProductPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/SignupPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ProductListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/CartProductPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Services/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/swing/login.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/swing/login.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/CartPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CartPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProductList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProductList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +61,19 @@
   }
 }</component>
   <component name="RunManager" selected="Application.view.Main">
+    <configuration name="CartProductPage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.CartProductPage" />
+      <module name="RS-ecommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="RS-ecommerce" />
@@ -129,6 +129,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.view.Main" />
+        <item itemvalue="Application.CartProductPage" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.ProductService" />
         <item itemvalue="Application.ProductList" />
@@ -156,7 +157,9 @@
       <workItem from="1684762387166" duration="628000" />
       <workItem from="1684825734898" duration="611000" />
       <workItem from="1685062490484" duration="1244000" />
-      <workItem from="1685191804581" duration="18715000" />
+      <workItem from="1685191804581" duration="19038000" />
+      <workItem from="1685257153381" duration="23665000" />
+      <workItem from="1685328428994" duration="3228000" />
     </task>
     <task id="LOCAL-00001" summary="set up the project and structured 2 packages">
       <created>1684466437976</created>
@@ -172,7 +175,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684582800257</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Implemented main crud functionalities in service classes">
+      <created>1685216697277</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685216697278</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Implemented main crud functionalities in service classes">
+      <created>1685216738521</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1685216738521</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,7 +200,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

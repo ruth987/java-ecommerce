@@ -60,7 +60,8 @@ public class ProductService {
                 double price = resultSet.getDouble("price");
                 int quantity = resultSet.getInt("quantity");
                 String image =resultSet.getString("image");
-                Product product = new Product(name, description, price, quantity, image);
+                int id = resultSet.getInt("id");
+                Product product = new Product(id,name, description, price, quantity, image);
                 productList.add(product);
             }
         } catch (SQLException e) {

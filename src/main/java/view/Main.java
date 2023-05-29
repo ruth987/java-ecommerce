@@ -3,8 +3,11 @@ package view;
 import controller.LoginController;
 import model.LoginModel;
 
+import java.sql.Connection;
+
 public class Main {
     public static void main(String[] args) {
+        Connection connection = null;
 //        LoginModel loginModel = new LoginModel();
 //        LoginPage loginPage = new LoginPage();
 //        loginPage.setVisible(true);
@@ -14,7 +17,6 @@ public class Main {
 //        cartPage.setVisible(true);
         ProductList productList = new ProductList();
         productList.setVisible(true);
-
     }
 }
 

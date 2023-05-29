@@ -1,7 +1,6 @@
 package view;
 
-import model.Product;
-import model.ProductService;
+import model.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,6 +31,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
 public class ProductList extends JFrame {
+    User user = User.getInstance();
+
+
+    private CartService cartService;
+    private Connection connection;
 
     private List<Product> productList;
     private List<JPanel> cardList;
@@ -41,9 +45,32 @@ public class ProductList extends JFrame {
     private JButton cartButton;
     private JLabel cartLabel;
     private int cartCount;
+    private int updateCartLabel() {
+        int cartCount = 0;
+        try {
+            List<Cart> cartItems = cartService.getCartItems(user.getUserId()); // Replace 'userId' with the actual user ID
+            cartCount = 0;
+            for (Cart cartItem : cartItems) {
+                cartCount += cartItem.getQuantity();
+            }
+            cartLabel.setText(Integer.toString(cartCount));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // Handle the exception
+        }
+        return cartCount;
+    }
+
 
     public ProductList() {
+
         super("Product List");
+        user.setUserId(1);
+        user.setUsername("ruthwosen");
+        user.setPassword("rwrwrwrw");
+        user.setEmail("ruthwossen@gmail.com");
+        cartService = new CartService(); // Replace 'connection' with your actual database connection
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(700, 500));
         pack();
@@ -83,15 +110,19 @@ public class ProductList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Open the cart or show a message if the cart is empty
-                if(cartCount > 0) {
-                    // Implement your cart functionality here
-                    // For example, create a new JFrame that shows the cart contents
+                int cartC = updateCartLabel();
+                System.out.println(cartC);
+                if(cartC > 0) {
+                    CartPage cartPage = new CartPage();
+                    setVisible(false);
+                    cartPage.setVisible(true);
                 } else {
                     cartLabel.setText("Your cart is empty");
                 }
             }
         });
         cartLabel = new JLabel("0");
+        updateCartLabel();
         cartLabel.setFont(new Font("Arial", Font.BOLD, 18));
         cartPanel.add(cartButton);
         cartPanel.add(cartLabel);
@@ -138,20 +169,49 @@ public class ProductList extends JFrame {
         infoPanel.add(priceLabel, gbc);
         gbc.gridy++;
         gbc.gridwidth = 1;
+
         JButton addButton = new JButton("Add to Cart");
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add the product to the cart and update the cart count
-                cartCount++;
-                cartLabel.setText(Integer.toString(cartCount));
+                int productId = product.getId();
+
+                boolean productExistsInCart = false;
+                List<Cart> cartItems;
+                try {
+                    cartItems = cartService.getCartItems(user.getUserId());
+                    for (Cart cartItem : cartItems) {
+                        if (cartItem.getProductId() == productId) {
+                            productExistsInCart = true;
+                            cartItem.setQuantity(cartItem.getQuantity() + 1);
+                            cartService.updateItemQuantity(user.getUserId(), productId, cartItem.getQuantity());
+                            break;
+                        }
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    // Handle the exception
+                }
+
+                if (!productExistsInCart) {
+                    Cart cartItem = new Cart(0, user.getUserId(), productId, 1);
+                    try {
+                        cartService.addItemToCart(cartItem);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        // Handle the exception
+                    }
+                }
+
+                updateCartLabel();
             }
         });
+
+
         infoPanel.add(addButton, gbc);
         card.add(infoPanel, BorderLayout.CENTER);
 
         return card;
     }
-
 
 }
