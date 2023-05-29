@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="Implemented main crud functionalities in service classes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ProductListController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/CartProductPage.java" afterDir="false" />
+    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="finished the cartpage and productList pages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Cart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/CartPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CartPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProductList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProductList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +151,7 @@
       <workItem from="1685062490484" duration="1244000" />
       <workItem from="1685191804581" duration="19038000" />
       <workItem from="1685257153381" duration="23665000" />
-      <workItem from="1685328428994" duration="3228000" />
+      <workItem from="1685328428994" duration="5780000" />
     </task>
     <task id="LOCAL-00001" summary="set up the project and structured 2 packages">
       <created>1684466437976</created>
@@ -189,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685216738521</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="finished the cartpage and productList pages">
+      <created>1685332043934</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1685332043934</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,7 +220,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="set up the project and structured 2 packages" />
     <MESSAGE value="Implemented main crud functionalities in service classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented main crud functionalities in service classes" />
+    <MESSAGE value="finished the cartpage and productList pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished the cartpage and productList pages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

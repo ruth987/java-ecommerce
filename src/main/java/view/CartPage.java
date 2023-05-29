@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,6 +24,13 @@ public class CartPage extends JFrame {
     private JButton clearCartButton;
     private JButton buyButton;
     private JButton continueShoppingButton;
+    private Connection createConnection() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/akecommerce";
+        String username = "root";
+        String password = "";
+
+        return DriverManager.getConnection(url, username, password);
+    }
 
     public CartPage() {
         super("Cart");
@@ -58,6 +67,18 @@ public class CartPage extends JFrame {
             // Implement the logic to clear the cart
             // For example: cartService.clearCart(user.getUserId());
             // Then refresh the cart table
+
+            try {
+                Connection conn = createConnection();
+                CartService.clearCart(conn, user.getUserId());
+                conn.close();
+                ProductList productList = new ProductList();
+                setVisible(false);
+                productList.setVisible(true);
+
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             refreshCartTable();
         });
 

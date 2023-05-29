@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartService {
-    private Connection conn;
+    private static Connection conn;
     public CartService() {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/akecommerce", "root", "");
@@ -65,7 +65,7 @@ public class CartService {
         }
     }
 
-    public void updateItemQuantity(int userId, int productId, int quantity) throws SQLException {
+    public static void updateItemQuantity(int userId, int productId, int quantity) throws SQLException {
         String query = "UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, quantity);
@@ -88,7 +88,7 @@ public class CartService {
         return cartItems;
     }
 
-    public void clearCart(int userId) throws SQLException {
+    public static void clearCart(Connection conn, int userId) throws SQLException {
         String query = "DELETE FROM cart WHERE user_id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, userId);
