@@ -15,9 +15,9 @@ public class Main {
 //        SignupPage signupPage = new SignupPage("", "", "");
 //        CartPage cartPage = new CartPage();
 //        cartPage.setVisible(true);
-        ProductList productList = new ProductList();
-        productList.setVisible(true);
+        var loginPage = new LoginPage();
+        loginPage.setVisible(true);
+
     }
 }
-
 

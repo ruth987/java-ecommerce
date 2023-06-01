@@ -12,7 +12,7 @@ public class LoginController {
         this.loginPage = loginPage;
     }
 
-    public void login(String username, String password) {
+    public boolean login(String username, String password) {
         boolean success = loginModel.login(username, password);
         if (success) {
             System.out.println("you are successfully logged in.");
@@ -21,6 +21,7 @@ public class LoginController {
             System.out.println("The login was unsuccessful.");
             // code for displaying error message
         }
+        return success;
     }
 
     public void showSignupPage() {

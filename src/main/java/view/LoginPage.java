@@ -63,7 +63,14 @@ public class LoginPage extends JFrame {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
                 if(loginController != null){
-                    loginController.login(username, password);
+                    var success = loginController.login(username, password);
+                    if(success){
+                        var product = new ProductList();
+                        product.setVisible(true);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Login failed");
+                    }
                 }
 
             }

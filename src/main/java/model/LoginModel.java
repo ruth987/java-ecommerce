@@ -19,6 +19,11 @@ public class LoginModel {
             String sql = "SELECT * FROM user WHERE username='" + username + "' AND password='" + password + "'";
             ResultSet rs = ((Statement) stmt).executeQuery(sql);
             if (rs.next()) {
+                User user = User.getInstance();
+                user.setUserId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
                 return true;
             }
         } catch(SQLException ex) {

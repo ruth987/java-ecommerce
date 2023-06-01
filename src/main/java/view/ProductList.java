@@ -2,15 +2,7 @@ package view;
 
 import model.*;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -21,13 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 public class ProductList extends JFrame {
@@ -65,10 +51,6 @@ public class ProductList extends JFrame {
     public ProductList() {
 
         super("Product List");
-        user.setUserId(1);
-        user.setUsername("ruthwosen");
-        user.setPassword("rwrwrwrw");
-        user.setEmail("ruthwossen@gmail.com");
         cartService = new CartService(); // Replace 'connection' with your actual database connection
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,7 +69,7 @@ public class ProductList extends JFrame {
 
         cardList = new ArrayList<>();
         mainPanel = new JPanel(new BorderLayout());
-        cardPanel = new JPanel(new GridLayout(0, 3, 10, 10));
+        cardPanel = new JPanel(new GridLayout(productList.size() / 2, 2, 10, 10));
 
         // Create a card for each product and add it to the card panel
         for (Product product : productList) {
@@ -133,46 +115,62 @@ public class ProductList extends JFrame {
     }
 
     private JPanel createCard(Product product) {
-        // Create a panel for the card
-        JPanel card = new JPanel(new BorderLayout());
-        card.setBackground(Color.WHITE);
-        Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
-        card.setBorder(border);
+    // Create a panel for the card
+    JPanel card = new JPanel();
+    card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+    card.setBackground(Color.WHITE);
+    Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
+    card.setBorder(border);
 
-        // Create a panel for the image
-        JPanel imagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        imagePanel.setBackground(Color.WHITE);
-        JLabel imageLabel = new JLabel(product.getImage());
-        imageLabel.setPreferredSize(new Dimension(100, 100));
-        imagePanel.add(imageLabel);
-        card.add(imagePanel, BorderLayout.NORTH);
+    // Create a panel for the image
+    JPanel imagePanel = new JPanel();
+    imagePanel.setBackground(Color.WHITE);
+    imagePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create a panel for the name, description, price and add to cart button
-        JPanel infoPanel = new JPanel(new GridBagLayout());
-        infoPanel.setBackground(Color.WHITE);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 10, 0, 10);
-        JLabel nameLabel = new JLabel(product.getName());
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        infoPanel.add(nameLabel, gbc);
-        gbc.gridy++;
-        JLabel descLabel = new JLabel(product.getDescription());
-        descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        infoPanel.add(descLabel, gbc);
-        gbc.gridy++;
-        JLabel priceLabel = new JLabel("$" + product.getPrice());
-        priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        infoPanel.add(priceLabel, gbc);
-        gbc.gridy++;
-        gbc.gridwidth = 1;
+    // Create a JLabel with the image
+    ImageIcon imageIcon = new ImageIcon(product.getImage());
+    JLabel imageLabel = new JLabel(imageIcon);
+    imageLabel.setPreferredSize(new Dimension(300, 200));
+    imagePanel.add(imageLabel);
 
-        JButton addButton = new JButton("Add to Cart");
-        addButton.addActionListener(new ActionListener() {
-            @Override
+    // Add the image panel to the card panel
+    card.add(imagePanel);
+
+    // Create a panel for the name, description, price and add to cart button
+    JPanel infoPanel = new JPanel(new GridBagLayout());
+    infoPanel.setBackground(Color.WHITE);
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 2;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.insets = new Insets(10, 10, 0, 10);
+    JLabel nameLabel = new JLabel(product.getName());
+    nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    nameLabel.setForeground(Color.BLACK);
+    nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    infoPanel.add(nameLabel, gbc);
+    gbc.gridy++;
+    JLabel descLabel = new JLabel(product.getDescription());
+    descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+    descLabel.setForeground(Color.GRAY);
+    descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    infoPanel.add(descLabel, gbc);
+    gbc.gridy++;
+    JLabel priceLabel = new JLabel("$" + product.getPrice());
+    priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    priceLabel.setForeground(Color.BLACK);
+    priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    infoPanel.add(priceLabel, gbc);
+    gbc.gridy++;
+    gbc.gridwidth = 1;
+
+    JButton addButton = new JButton("Add to Cart");
+    addButton.setBackground(Color.BLUE);
+    addButton.setForeground(Color.WHITE);
+    addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    addButton.addActionListener(new ActionListener() {
+        @Override
             public void actionPerformed(ActionEvent e) {
                 int productId = product.getId();
 
@@ -205,13 +203,17 @@ public class ProductList extends JFrame {
 
                 updateCartLabel();
             }
-        });
+    });
+    infoPanel.add(addButton, gbc);
 
+    // Add the info panel to the card panel
+    card.add(infoPanel);
 
-        infoPanel.add(addButton, gbc);
-        card.add(infoPanel, BorderLayout.CENTER);
+    return card;
+}
 
-        return card;
+    public static void main(String[] args) {
+        new ProductList().setVisible(true);
     }
 
 }
