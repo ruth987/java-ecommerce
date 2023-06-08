@@ -57,7 +57,12 @@ public class CartPage extends JFrame {
         // Create the buttons
         backButton = new JButton("Back");
         backButton.addActionListener(e -> {
-            ProductList productList = new ProductList();
+            ProductList productList = null;
+            try {
+                productList = new ProductList(User.getInstance());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             setVisible(false);
             productList.setVisible(true);
         });
@@ -72,7 +77,7 @@ public class CartPage extends JFrame {
                 Connection conn = createConnection();
                 CartService.clearCart(conn, user.getUserId());
                 conn.close();
-                ProductList productList = new ProductList();
+                ProductList productList = new ProductList(User.getInstance());
                 setVisible(false);
                 productList.setVisible(true);
 
@@ -92,7 +97,12 @@ public class CartPage extends JFrame {
 
         continueShoppingButton = new JButton("Continue Shopping");
         continueShoppingButton.addActionListener(e -> {
-            ProductList productList = new ProductList();
+            ProductList productList = null;
+            try {
+                productList = new ProductList(User.getInstance());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             setVisible(false);
             productList.setVisible(true);
         });

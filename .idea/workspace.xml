@@ -4,21 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="both the cart and productList pages are working fine">
-      <change afterPath="$PROJECT_DIR$/fb2.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java_images/apple.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java_images/dell.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java_images/hp.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java_images/lenovo.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/ProductList1.java" afterDir="false" />
+    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="complete project">
+      <change afterPath="$PROJECT_DIR$/src/java_images/apple.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java_images/dell.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java_images/hp.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java_images/lenovo.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/swing/ProductList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/LoginModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/LoginModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/CartPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CartPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/HomePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/LoginPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/ProductList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProductList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SignupPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SignupPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,22 +53,26 @@
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "201",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/ruthwossen/IdeaProjects/RS-ecommerce",
+    "last_opened_file_path": "/home/ruthwossen/IdeaProjects/RS-ecommerce/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "/home/ruthwossen/IdeaProjects/RS-ecommerce/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="swing" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/" />
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
@@ -76,19 +83,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="view.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
-      <module name="RS-ecommerce" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -122,6 +116,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="swing.ProductList" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="swing.ProductList" />
+      <module name="RS-ecommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="swing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="view.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="view.Main" />
       <module name="RS-ecommerce" />
@@ -138,10 +145,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.view.Main" />
+        <item itemvalue="Application.swing.ProductList" />
         <item itemvalue="Application.ProductList" />
         <item itemvalue="Application.ProductList1" />
         <item itemvalue="Application.CartProductPage" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -176,7 +183,8 @@
       <workItem from="1685529151643" duration="2841000" />
       <workItem from="1685600786273" duration="607000" />
       <workItem from="1685601913070" duration="3792000" />
-      <workItem from="1685640856785" duration="2994000" />
+      <workItem from="1685640856785" duration="4609000" />
+      <workItem from="1685675870382" duration="12779000" />
     </task>
     <task id="LOCAL-00001" summary="set up the project and structured 2 packages">
       <created>1684466437976</created>
@@ -220,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685334471138</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="complete project">
+      <created>1685646370296</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685646370296</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +269,8 @@
     <MESSAGE value="Implemented main crud functionalities in service classes" />
     <MESSAGE value="finished the cartpage and productList pages" />
     <MESSAGE value="both the cart and productList pages are working fine" />
-    <option name="LAST_COMMIT_MESSAGE" value="both the cart and productList pages are working fine" />
+    <MESSAGE value="complete project" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete project" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

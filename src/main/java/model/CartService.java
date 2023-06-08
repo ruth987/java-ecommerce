@@ -132,4 +132,46 @@ public class CartService {
         return null;
     }
 
+
+    public int getCartItemCount(int userId) {
+        int count = 0;
+        try {
+            String query = "SELECT SUM(quantity) AS count FROM cart WHERE user_id = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return count;
+    }
+
+    public List<Product> getAllProducts() {
+        List<Product> products = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM product";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                double price = rs.getDouble("price");
+                int quantity = rs.getInt("quantity");
+                String image = rs.getString("image");
+                Product product = new Product(id, name, description, price, quantity, image);
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return products;
+    }
 }

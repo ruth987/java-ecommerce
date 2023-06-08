@@ -1,11 +1,13 @@
 package view;
 import controller.LoginController;
 import model.LoginModel;
-
+import model.User;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class LoginPage extends JFrame {
     private JLabel titleLabel, usernameLabel, passwordLabel;
@@ -13,11 +15,12 @@ public class LoginPage extends JFrame {
     private JPasswordField passwordField;
     private JButton loginButton, signupButton, forgotPasswordButton;
     private LoginController loginController;
+
     public LoginPage() {
         this("", "");
     }
 
-    public LoginPage( String username, String password) {
+    public LoginPage(String username, String password) {
         LoginController lg = new LoginController(new LoginModel(), this);
 
         this.loginController = lg;
@@ -57,15 +60,24 @@ public class LoginPage extends JFrame {
         // Create and set the login button
         loginButton = new JButton("Login");
         loginButton.setBounds(80, 220, 80, 30);
+        loginButton.setBackground(new Color(0, 122, 255));
+        loginButton.setForeground(Color.WHITE);
+        Border border = BorderFactory.createLineBorder(new Color(0, 122, 255), 2);
+        loginButton.setBorder(border);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-                if(loginController != null){
+                if (loginController != null) {
                     var success = loginController.login(username, password);
-                    if(success){
-                        var product = new ProductList();
+                    if (success) {
+                        ProductList product = null;
+                        try {
+                            product = new ProductList(User.getInstance());
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
                         product.setVisible(true);
                         dispose();
                     } else {
@@ -80,7 +92,9 @@ public class LoginPage extends JFrame {
         // Create and set the signup button
         signupButton = new JButton("Sign Up");
         signupButton.setBounds(200, 220, 80, 30);
-//        frame.add(signupButton);
+        signupButton.setBackground(new Color(0, 122, 255));
+        signupButton.setForeground(Color.WHITE);
+        signupButton.setBorder(border);
         signupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,13 +106,9 @@ public class LoginPage extends JFrame {
         });
         add(signupButton);
 
-        // Create and set the forgot password button
-        forgotPasswordButton = new JButton("Forgot Password");
-        forgotPasswordButton.setBounds(120, 270, 150, 30);
-        add(forgotPasswordButton);
 
         // Set the background color of the frame
-        getContentPane().setBackground(new Color(255, 255, 204));
+        getContentPane().setBackground(new Color(255, 255, 255));
 
         // Set the frame to be visible
         setVisible(true);

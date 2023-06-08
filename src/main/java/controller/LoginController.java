@@ -14,9 +14,9 @@ public class LoginController {
 
     public boolean login(String username, String password) {
         boolean success = loginModel.login(username, password);
+        System.out.println("login success: " + success);
         if (success) {
             System.out.println("you are successfully logged in.");
-            // code for redirecting to home page
         } else {
             System.out.println("The login was unsuccessful.");
             // code for displaying error message

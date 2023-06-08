@@ -2,99 +2,68 @@ package view;
 
 import model.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-
 public class ProductList extends JFrame {
-    User user = User.getInstance();
-
-
-    private CartService cartService;
-    private Connection connection;
-
-    private List<Product> productList;
-    private List<JPanel> cardList;
+    private JLabel titleLabel, cartLabel;
     private JPanel mainPanel;
-    private JPanel cardPanel;
-    private JScrollPane scrollPane;
     private JButton cartButton;
-    private JLabel cartLabel;
-    private int cartCount;
-    private int updateCartLabel() {
-        int cartCount = 0;
-        try {
-            List<Cart> cartItems = cartService.getCartItems(user.getUserId()); // Replace 'userId' with the actual user ID
-            cartCount = 0;
-            for (Cart cartItem : cartItems) {
-                cartCount += cartItem.getQuantity();
-            }
-            cartLabel.setText(Integer.toString(cartCount));
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            // Handle the exception
-        }
-        return cartCount;
+    private User user;
+    private CartService cartService;
+
+    public ProductList(User user) throws SQLException {
+        this.user = user;
+        this.cartService = new CartService();
+
+        // Set the title of the frame
+        setTitle("Product List");
+        // Set the size of the frame
+        setSize(600, 600);
+        // Set the layout to border layout
+        setLayout(new BorderLayout());
+        // Set the background color of the frame
+        setBackground(Color.LIGHT_GRAY);
+
+        // Create and set the title label
+        titleLabel = new JLabel("Product List");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Create the main panel
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Create the cart panel
+        createCartPanel();
+
+        // Load the products and create the cards
+        loadProducts();
+
+        // Create the navbar panel
+        createNavBarPanel();
     }
 
-
-    public ProductList() {
-
-        super("Product List");
-        cartService = new CartService(); // Replace 'connection' with your actual database connection
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(700, 500));
-        pack();
-        setLocationRelativeTo(null);
-        ProductService productService = new ProductService();
-
-        // Retrieve the products from the database
-        try {
-            productList = productService.displayAllProducts();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //Handle the exception here
-        }
-
-        cardList = new ArrayList<>();
-        mainPanel = new JPanel(new BorderLayout());
-        cardPanel = new JPanel(new GridLayout(productList.size() / 2, 2, 10, 10));
-
-        // Create a card for each product and add it to the card panel
-        for (Product product : productList) {
-            JPanel card = createCard(product);
-            cardList.add(card);
-            cardPanel.add(card);
-        }
-
-        // Add the card panel to a scroll pane
-        scrollPane = new JScrollPane(cardPanel);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
-
+    private void createCartPanel() {
         // Create a panel for the cart button and label
         JPanel cartPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         cartPanel.setBackground(Color.WHITE);
         cartButton = new JButton("Cart");
         cartButton.setPreferredSize(new Dimension(100, 30));
+        cartButton.setBackground(new Color(0, 0, 128));
+        cartButton.setForeground(Color.WHITE);
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Open the cart or show a message if the cart is empty
-                int cartC = updateCartLabel();
-                System.out.println(cartC);
-                if(cartC > 0) {
+                int cartCount = cartService.getCartItemCount(user.getUserId());
+                System.out.println(cartCount);
+                if(cartCount > 0) {
                     CartPage cartPage = new CartPage();
                     setVisible(false);
                     cartPage.setVisible(true);
@@ -103,117 +72,104 @@ public class ProductList extends JFrame {
                 }
             }
         });
-        cartLabel = new JLabel("0");
-        updateCartLabel();
+        cartLabel = new JLabel(String.valueOf(cartService.getCartItemCount(user.getUserId())));
         cartLabel.setFont(new Font("Arial", Font.BOLD, 18));
         cartPanel.add(cartButton);
         cartPanel.add(cartLabel);
-        mainPanel.add(cartPanel, BorderLayout.SOUTH);
+        add(cartPanel, BorderLayout.SOUTH);
+    }
 
-        setContentPane(mainPanel);
-        setVisible(true);
+    private void loadProducts() throws SQLException {
+        ProductService productService = new ProductService();
+        List<Product> products = productService.displayAllProducts();
+        for(Product product : products) {
+            JPanel card = createCard(product);
+            mainPanel.add(card);
+        }
     }
 
     private JPanel createCard(Product product) {
-    // Create a panel for the card
-    JPanel card = new JPanel();
-    card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-    card.setBackground(Color.WHITE);
-    Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
-    card.setBorder(border);
+        // Create a panel for the card
+        JPanel card = new JPanel();
+        card.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
 
-    // Create a panel for the image
-    JPanel imagePanel = new JPanel();
-    imagePanel.setBackground(Color.WHITE);
-    imagePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Create and set the product image label
+        JLabel imageLabel = new JLabel();
+        ImageIcon imageIcon = new ImageIcon(product.getImage());
+        imageLabel.setIcon(imageIcon);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        imageLabel.setPreferredSize(new Dimension(400, 200));
+        imageLabel.setMaximumSize(new Dimension(400, 200));
+        card.add(Box.createVerticalStrut(10));
+        card.add(imageLabel);
 
-    // Create a JLabel with the image
-    ImageIcon imageIcon = new ImageIcon(product.getImage());
-    JLabel imageLabel = new JLabel(imageIcon);
-    imageLabel.setPreferredSize(new Dimension(300, 200));
-    imagePanel.add(imageLabel);
+        // Create and set the product name label
+        JLabel nameLabel = new JLabel(product.getProductName());
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(Box.createVerticalStrut(10));
+        card.add(nameLabel);
 
-    // Add the image panel to the card panel
-    card.add(imagePanel);
+        // Create and set the product description label
+        JLabel descriptionLabel = new JLabel(product.getProductDescription());
+        descriptionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(Box.createVerticalStrut(10));
+        card.add(descriptionLabel);
 
-    // Create a panel for the name, description, price and add to cart button
-    JPanel infoPanel = new JPanel(new GridBagLayout());
-    infoPanel.setBackground(Color.WHITE);
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.gridwidth = 2;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.insets = new Insets(10, 10, 0, 10);
-    JLabel nameLabel = new JLabel(product.getName());
-    nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    nameLabel.setForeground(Color.BLACK);
-    nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    infoPanel.add(nameLabel, gbc);
-    gbc.gridy++;
-    JLabel descLabel = new JLabel(product.getDescription());
-    descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-    descLabel.setForeground(Color.GRAY);
-    descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    infoPanel.add(descLabel, gbc);
-    gbc.gridy++;
-    JLabel priceLabel = new JLabel("$" + product.getPrice());
-    priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    priceLabel.setForeground(Color.BLACK);
-    priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    infoPanel.add(priceLabel, gbc);
-    gbc.gridy++;
-    gbc.gridwidth = 1;
+        // Create and set the product price label
+        JLabel priceLabel = new JLabel("$" + product.getProductPrice());
+        priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(Box.createVerticalStrut(10));
+        card.add(priceLabel);
 
-    JButton addButton = new JButton("Add to Cart");
-    addButton.setBackground(Color.BLUE);
-    addButton.setForeground(Color.WHITE);
-    addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-    addButton.addActionListener(new ActionListener() {
-        @Override
+        // Create a button to add the product to the cart and add it to the card
+        JButton addButton = new JButton("Add to Cart");
+        addButton.setBackground(new Color(33, 150, 243));
+        addButton.setForeground(Color.WHITE);
+        addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                int productId = product.getId();
-
-                boolean productExistsInCart = false;
-                List<Cart> cartItems;
+                Cart cartItem = new Cart(0, user.getUserId(), (Integer)product.getProductId(), 1);
                 try {
-                    cartItems = cartService.getCartItems(user.getUserId());
-                    for (Cart cartItem : cartItems) {
-                        if (cartItem.getProductId() == productId) {
-                            productExistsInCart = true;
-                            cartItem.setQuantity(cartItem.getQuantity() + 1);
-                            cartService.updateItemQuantity(user.getUserId(), productId, cartItem.getQuantity());
-                            break;
-                        }
-                    }
+                    cartService.addItemToCart(cartItem);
+                    int cartCount = cartService.getCartItemCount(user.getUserId());
+                    cartLabel.setText(String.valueOf(cartCount));
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     // Handle the exception
                 }
-
-                if (!productExistsInCart) {
-                    Cart cartItem = new Cart(0, user.getUserId(), productId, 1);
-                    try {
-                        cartService.addItemToCart(cartItem);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        // Handle the exception
-                    }
-                }
-
-                updateCartLabel();
             }
-    });
-    infoPanel.add(addButton, gbc);
+        });
+        card.add(Box.createVerticalStrut(5));
+        card.add(addButton);
 
-    // Add the info panel to the card panel
-    card.add(infoPanel);
-
-    return card;
-}
-
-    public static void main(String[] args) {
-        new ProductList().setVisible(true);
+        return card;
     }
 
+    private void createNavBarPanel() {
+        // Create a panel for the navbar
+        JPanel navbarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        navbarPanel.setBackground(Color.WHITE);
+
+        // Create a button to go to the cart page and add it to the navbar panel
+        JButton cartButton = new JButton("Logout");
+
+        cartButton.setPreferredSize(new Dimension(100, 30));
+        cartButton.setBackground(new Color(0, 0, 128));
+        cartButton.setForeground(Color.WHITE);
+        cartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginPage loginPage = new LoginPage();
+                setVisible(false);
+                loginPage.setVisible(true);
+            }
+        });
+        navbarPanel.add(cartButton);
+
+        add(navbarPanel, BorderLayout.NORTH);
+    }
 }

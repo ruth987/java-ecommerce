@@ -91,7 +91,7 @@ public class SignupPage extends JFrame {
         add(backButton);
 
         // Set the background color of the frame
-        getContentPane().setBackground(new Color(255, 255, 204));
+        getContentPane().setBackground(new Color(255, 255, 255));
 
         // Set the frame to be visible
         setVisible(true);

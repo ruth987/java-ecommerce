@@ -7,7 +7,11 @@ public class User {
     private String password;
     private String email;
 
-    private User() {
+    public User() {
+
+    }
+
+    public User(int i, String s, String s1) {
 
     }
 
@@ -56,5 +60,9 @@ public class User {
 
     public static void setInstance(User instance) {
         User.instance = instance;
+    }
+
+    public String getUserName() {
+        return username;
     }
 }

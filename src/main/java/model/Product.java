@@ -61,4 +61,20 @@ public class Product {
     public int getId() {
         return id;
     }
+
+    public String getProductName() {
+        return name;
+    }
+
+    public Object getProductId() {
+        return id;
+    }
+
+    public String getProductPrice() {
+        return String.valueOf(price);
+    }
+
+    public String getProductDescription() {
+        return description;
+    }
 }

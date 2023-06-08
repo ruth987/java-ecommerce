@@ -15,6 +15,12 @@ public class LoginModel {
 
     public boolean login(String username, String password) {
         try {
+            if(password == null || password.isEmpty()) {
+                return false;
+            }
+            if(username == null || username.isEmpty()) {
+                return false;
+            }
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM user WHERE username='" + username + "' AND password='" + password + "'";
             ResultSet rs = ((Statement) stmt).executeQuery(sql);
