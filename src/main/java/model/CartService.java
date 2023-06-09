@@ -138,8 +138,9 @@ public class CartService {
             double price = rs.getDouble("price");
             int quantity = rs.getInt("quantity");
             String image = rs.getString("image");
+            String type = rs.getString("type");
             // Create and return the Product object
-            return new Product(id, name, description, price, quantity, image);
+            return new Product(name, description, price, quantity, image, type);
         }
 
         // If no product found, return null or throw an exception
@@ -179,7 +180,8 @@ public class CartService {
                 double price = rs.getDouble("price");
                 int quantity = rs.getInt("quantity");
                 String image = rs.getString("image");
-                Product product = new Product(id, name, description, price, quantity, image);
+                String type = rs.getString("type");
+                Product product = new Product(name, description, price, quantity, image, type);
                 products.add(product);
             }
         } catch (SQLException ex) {

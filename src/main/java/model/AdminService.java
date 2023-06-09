@@ -104,12 +104,12 @@ public class AdminService {
 
         while (rs.next()) {
             Product product = new Product(
-                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("description"),
                     rs.getDouble("price"),
                     rs.getInt("quantity"),
-                    rs.getString("image")
+                    rs.getString("image"),
+                    rs.getString("type")
             );
             products.add(product);
         }
@@ -148,4 +148,5 @@ public class AdminService {
         ps.setInt(6, adminId);
         ps.executeUpdate();
     }
+
 }

@@ -7,14 +7,14 @@ public class Product {
     private double price;
     private int quantity;
     private String image;
-    private int admin_id;
+    private String type;
 
-    public Product(int id, String name, String description, double price, int quantity, String image) {
-        this.id          = id;
+    public Product(String name, String description, double price, int quantity, String image, String type) {
         this.name        = name;
         this.description = description;
         this.price       = price;
         this.quantity    = quantity;
+        this.type        = type;
         this.image       = image;
     }
 
@@ -80,6 +80,17 @@ public class Product {
     }
 
     public int getAdminId() {
-        return admin_id;
+        return id;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setId(int generatedId) {
+        this.id = generatedId;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
