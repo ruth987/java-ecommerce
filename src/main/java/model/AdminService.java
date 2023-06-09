@@ -1,8 +1,5 @@
 package model;
 
-import model.Admin;
-import model.Product;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,8 +106,8 @@ public class AdminService {
                     rs.getDouble("price"),
                     rs.getInt("quantity"),
                     rs.getString("image"),
-                    rs.getString("type")
-            );
+                    rs.getString("type"),
+                    adminId);
             products.add(product);
         }
         return products;

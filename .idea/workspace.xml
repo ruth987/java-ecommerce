@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="admin login, signup page and sample dashboard completed">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/AdminDashboardController.java" afterDir="false" />
+    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="the admindashboard is working well with the controller_">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CartService.java" afterDir="false" />
@@ -186,7 +185,7 @@
       <workItem from="1685640856785" duration="4609000" />
       <workItem from="1685675870382" duration="12779000" />
       <workItem from="1686251555136" duration="1304000" />
-      <workItem from="1686282197030" duration="40229000" />
+      <workItem from="1686282197030" duration="45043000" />
     </task>
     <task id="LOCAL-00001" summary="set up the project and structured 2 packages">
       <created>1684466437976</created>
@@ -279,7 +278,21 @@
       <option name="project" value="LOCAL" />
       <updated>1686324259990</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="the admindashboard is working well with the controller">
+      <created>1686334625634</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1686334625634</updated>
+    </task>
+    <task id="LOCAL-00015" summary="the admindashboard is working well with the controller_">
+      <created>1686334662457</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1686334662457</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,7 +332,9 @@
     <MESSAGE value="completed all the ui modifications" />
     <MESSAGE value="done" />
     <MESSAGE value="admin login, signup page and sample dashboard completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin login, signup page and sample dashboard completed" />
+    <MESSAGE value="the admindashboard is working well with the controller" />
+    <MESSAGE value="the admindashboard is working well with the controller_" />
+    <option name="LAST_COMMIT_MESSAGE" value="the admindashboard is working well with the controller_" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

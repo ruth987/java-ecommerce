@@ -17,7 +17,7 @@ public class ProductService {
     }
 
     public void addProduct(Product product) throws SQLException {
-        String query = "INSERT INTO product(name, description, price, quantity, image, type) VALUES(?,?,?,?,?,?)";
+        String query = "INSERT INTO product(name, description, price, quantity, image, type, adminId) VALUES(?,?,?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, product.getName());
         ps.setString(2, product.getDescription());
@@ -25,6 +25,7 @@ public class ProductService {
         ps.setInt(4, product.getQuantity());
         ps.setString(5, product.getImage());
         ps.setString(6, product.getType());
+        ps.setInt(7, product.getAdminId());
         ps.executeUpdate();
 
         // Retrieve the product's id using other unique attributes
@@ -78,8 +79,9 @@ public class ProductService {
                 int quantity = resultSet.getInt("quantity");
                 String image = resultSet.getString("image");
                 String type = resultSet.getString("type");
+                int adminId = resultSet.getInt("adminId");
 
-                Product product = new Product(name, description, price, quantity, image, type);
+                Product product = new Product(name, description, price, quantity, image, type, adminId);
                 productList.add(product);
             }
         } catch (SQLException e) {
@@ -99,7 +101,7 @@ public class ProductService {
 
     public List<Product> getProductsByAdminId(int adminId) throws SQLException {
         List<Product> products = new ArrayList<>();
-        String query = "SELECT * FROM product WHERE admin_id = ?";
+        String query = "SELECT * FROM product WHERE adminId = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, adminId);
         ResultSet rs = ps.executeQuery();
@@ -111,8 +113,8 @@ public class ProductService {
                     rs.getDouble("price"),
                     rs.getInt("quantity"),
                     rs.getString("image"),
-                    rs.getString("type")
-            );
+                    rs.getString("type"),
+                    rs.getInt("adminId")) ;
             products.add(product);
         }
         return products;
@@ -123,7 +125,7 @@ public class ProductService {
             // You can modify this code according to your database structure and implementation
 
             // Prepare your database query
-            String query = "SELECT * FROM products WHERE id = ? AND admin_id = ?";
+            String query = "SELECT * FROM product WHERE id = ? AND adminId = ?";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, id);
             statement.setInt(2, adminId);
@@ -141,8 +143,8 @@ public class ProductService {
                 String type = resultSet.getString("type");
 
                 // Create a new Product object and populate it with the retrieved data
-                Product product = new Product(name, description, price, quantity, image, type);
-
+                Product product = new Product(name, description, price, quantity, image, type, adminId);
+                product.setId(Integer.parseInt(id));
                 return product;
             }
         } catch (SQLException e) {

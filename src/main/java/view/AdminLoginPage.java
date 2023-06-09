@@ -133,6 +133,7 @@ public class AdminLoginPage extends JFrame {
 
                 if (success) {
                     // Admin login successful
+                    System.out.println(admin.getId());
                     AdminDashboard adminDashboardPage = new AdminDashboard(admin);
                     adminDashboardPage.setVisible(true);
                     dispose();

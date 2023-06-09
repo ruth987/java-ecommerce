@@ -9,13 +9,14 @@ public class Product {
     private String image;
     private String type;
 
-    public Product(String name, String description, double price, int quantity, String image, String type) {
+    public Product(String name, String description, double price, int quantity, String image, String type, int adminId) {
         this.name        = name;
         this.description = description;
         this.price       = price;
         this.quantity    = quantity;
         this.type        = type;
         this.image       = image;
+        this.id          = adminId;
     }
 
 

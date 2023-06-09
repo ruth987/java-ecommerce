@@ -161,11 +161,6 @@ public class AdminDashboard extends JFrame {
         JPanel addPostPanel = new JPanel(new GridLayout(0, 2, 10, 10));
         addPostPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel idLabel = new JLabel("ID:");
-        JTextField idTextField = new JTextField();
-        addPostPanel.add(idLabel);
-        addPostPanel.add(idTextField);
-
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameTextField = new JTextField();
         addPostPanel.add(nameLabel);
@@ -202,15 +197,17 @@ public class AdminDashboard extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = idTextField.getText();
+                System.out.println(admin.getId());
                 String name = nameTextField.getText();
                 String description = descriptionTextField.getText();
                 double price = Double.parseDouble(priceTextField.getText());
                 int quantity = Integer.parseInt(quantityTextField.getText());
                 String image = imageTextField.getText();
                 String type = typeTextField.getText();
+                int adminId = admin.getId();
 
-                Product newProduct = new Product(name, description, price, quantity, image, type);
+                Product newProduct = new Product(name, description, price, quantity, image, type, adminId);
+                System.out.println(newProduct.getId());
                 try {
                     productService.addProduct(newProduct);
                 } catch (SQLException ex) {
@@ -220,7 +217,6 @@ public class AdminDashboard extends JFrame {
                 JOptionPane.showMessageDialog(AdminDashboard.this, "Product added successfully!");
 
                 // Clear the input fields
-                idTextField.setText("");
                 nameTextField.setText("");
                 descriptionTextField.setText("");
                 priceTextField.setText("");
@@ -363,10 +359,18 @@ public class AdminDashboard extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String name = nameTextField.getText();
                 String description = descriptionTextField.getText();
-                double price = Double.parseDouble(priceTextField.getText());
-                int quantity = Integer.parseInt(quantityTextField.getText());
+                double price;
+                int quantity;
                 String image = imageTextField.getText();
                 String type = typeTextField.getText();
+
+                try {
+                    price = Double.parseDouble(priceTextField.getText());
+                    quantity = Integer.parseInt(quantityTextField.getText());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(AdminDashboard.this, "Invalid price or quantity format!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the ActionListener if parsing fails
+                }
 
                 product.setName(name);
                 product.setDescription(description);
@@ -377,15 +381,15 @@ public class AdminDashboard extends JFrame {
 
                 try {
                     productService.updateProduct(product);
+                    JOptionPane.showMessageDialog(AdminDashboard.this, "Product updated successfully!");
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
 
-                JOptionPane.showMessageDialog(AdminDashboard.this, "Product updated successfully!");
-
                 showPostsOption();
             }
         });
+
         updateFormPanel.add(updateButton);
 
         contentPanel.add(updateFormPanel, BorderLayout.CENTER);
