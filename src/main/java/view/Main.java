@@ -18,7 +18,7 @@ public class Main {
         var loginPage = new LoginPage();
         loginPage.setVisible(true);
 //        HomePage homePage = new HomePage();
-
+//        homePage.setVisible(true);
     }
 }
 
