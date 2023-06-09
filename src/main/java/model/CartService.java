@@ -15,6 +15,20 @@ public class CartService {
         }
     }
 
+    public static void updateCartItemQuantity(Cart cartItem, int newQuantity) {
+        try {
+            String query = "UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, newQuantity);
+            ps.setInt(2, cartItem.getUserId());
+            ps.setInt(3, cartItem.getProductId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
 
     public void addItemToCart(Cart cart) throws SQLException {
         String query = "SELECT * FROM cart WHERE user_id = ? AND product_id = ?";

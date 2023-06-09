@@ -24,6 +24,8 @@ public class CartPage extends JFrame {
     private JButton clearCartButton;
     private JButton buyButton;
     private JButton continueShoppingButton;
+    private JButton deleteSelectedButton; // Add delete button
+
     private Connection createConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/akecommerce";
         String username = "root";
@@ -106,14 +108,55 @@ public class CartPage extends JFrame {
             setVisible(false);
             productList.setVisible(true);
         });
+        // Add delete button
+        deleteSelectedButton = new JButton("Delete Selected");
+        deleteSelectedButton.addActionListener(e -> {
+            int selectedRow = cartTable.getSelectedRow();
+            if (selectedRow != -1) {
+                Cart cartItem = cartItems.get(selectedRow);
+
+                // Decrease the quantity of the selected item
+                int newQuantity = cartItem.getQuantity() - 1;
+                if (newQuantity <= 0) {
+                    // If the quantity becomes zero, delete the item from the cart
+                    try {
+                        CartService.removeItemFromCart(cartItem);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    // Update the quantity of the item in the cart
+                    CartService.updateCartItemQuantity(cartItem, newQuantity);
+                }
+
+                // Refresh the cart table
+                refreshCartTable();
+                CartPage cartPage = new CartPage();
+                setVisible(false);
+                cartPage.setVisible(true);
+            }
+        });
+        // Change button colors to blue
+        backButton.setBackground(Color.BLUE);
+        backButton.setForeground(Color.WHITE);
+        clearCartButton.setBackground(Color.BLUE);
+        clearCartButton.setForeground(Color.WHITE);
+        buyButton.setBackground(Color.BLUE);
+        buyButton.setForeground(Color.WHITE);
+        continueShoppingButton.setBackground(Color.BLUE);
+        continueShoppingButton.setForeground(Color.WHITE);
+        deleteSelectedButton.setBackground(Color.BLUE);
+        deleteSelectedButton.setForeground(Color.WHITE);
 
         // Add components to the main panel
         mainPanel.add(new JScrollPane(cartTable), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(deleteSelectedButton); // Add delete button
         buttonPanel.add(clearCartButton);
         buttonPanel.add(buyButton);
         buttonPanel.add(continueShoppingButton);
+
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -127,9 +170,9 @@ public class CartPage extends JFrame {
     }
 
     private void createCartTable() {
-        // Create the table model
-        String[] columnNames = {"Product ID", "Product Name", "Quantity", "Price", "Delete"};
-        Object[][] data = new Object[cartItems.size()][5];
+        // Remove the delete buttons from the table
+        String[] columnNames = {"Product ID", "Product Name", "Quantity", "Price"};
+        Object[][] data = new Object[cartItems.size()][4];
 
         for (int i = 0; i < cartItems.size(); i++) {
             Cart cartItem = cartItems.get(i);
@@ -140,26 +183,6 @@ public class CartPage extends JFrame {
                 data[i][1] = product.getName();
                 data[i][2] = cartItem.getQuantity();
                 data[i][3] = product.getPrice();
-
-                // Add a delete button for each row
-                JButton deleteButton = new JButton("Delete");
-                int rowIndex = i; // Store the index in a final variable for use in the ActionListener
-                deleteButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Implement the logic to delete the cart item
-                        // For example: cartService.deleteCartItem(cartItem.getId());
-                        // Then refresh the cart table
-                        // made remove item from cart static
-                        try {
-                            CartService.removeItemFromCart(cartItem);
-                        } catch (SQLException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        refreshCartTable();
-                    }
-                });
-                data[i][4] = deleteButton;
             }
         }
 
@@ -182,7 +205,6 @@ public class CartPage extends JFrame {
         cartTable.getColumnModel().getColumn(1).setPreferredWidth(200);
         cartTable.getColumnModel().getColumn(2).setPreferredWidth(100);
         cartTable.getColumnModel().getColumn(3).setPreferredWidth(100);
-        cartTable.getColumnModel().getColumn(4).setPreferredWidth(100);
 
         // Set table styling
         cartTable.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -195,7 +217,6 @@ public class CartPage extends JFrame {
         cartTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         cartTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         cartTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        cartTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
 
         // Enable vertical scrolling
         JScrollPane scrollPane = new JScrollPane(cartTable);
@@ -231,4 +252,5 @@ public class CartPage extends JFrame {
         mainPanel.revalidate();
         mainPanel.repaint();
     }
+
 }

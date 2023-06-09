@@ -55,7 +55,7 @@ public class ProductList extends JFrame {
         cartPanel.setBackground(Color.WHITE);
         cartButton = new JButton("Cart");
         cartButton.setPreferredSize(new Dimension(100, 30));
-        cartButton.setBackground(new Color(0, 0, 128));
+        cartButton.setBackground(new Color(0, 122, 255));
         cartButton.setForeground(Color.WHITE);
         cartButton.addActionListener(new ActionListener() {
             @Override
@@ -126,7 +126,7 @@ public class ProductList extends JFrame {
 
         // Create a button to add the product to the cart and add it to the card
         JButton addButton = new JButton("Add to Cart");
-        addButton.setBackground(new Color(33, 150, 243));
+        addButton.setBackground(new Color(0, 122, 255));
         addButton.setForeground(Color.WHITE);
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addButton.addActionListener(new ActionListener() {
@@ -158,7 +158,7 @@ public class ProductList extends JFrame {
         JButton cartButton = new JButton("Logout");
 
         cartButton.setPreferredSize(new Dimension(100, 30));
-        cartButton.setBackground(new Color(0, 0, 128));
+        cartButton.setBackground(new Color(0, 122, 255));
         cartButton.setForeground(Color.WHITE);
         cartButton.addActionListener(new ActionListener() {
             @Override

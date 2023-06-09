@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="completed everything">
+    <list default="true" id="67a7c894-cb48-43ae-991c-0f66612dad5a" name="Changes" comment="completed the ui of login page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/LoginPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/CartPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CartPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProductList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProductList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SignupPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SignupPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +174,7 @@
       <workItem from="1685640856785" duration="4609000" />
       <workItem from="1685675870382" duration="12779000" />
       <workItem from="1686251555136" duration="1304000" />
-      <workItem from="1686282197030" duration="226000" />
+      <workItem from="1686282197030" duration="2901000" />
     </task>
     <task id="LOCAL-00001" summary="set up the project and structured 2 packages">
       <created>1684466437976</created>
@@ -236,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686252219675</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="completed the ui of login page">
+      <created>1686282537494</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1686282537495</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +282,8 @@
     <MESSAGE value="both the cart and productList pages are working fine" />
     <MESSAGE value="complete project" />
     <MESSAGE value="completed everything" />
-    <option name="LAST_COMMIT_MESSAGE" value="completed everything" />
+    <MESSAGE value="completed the ui of login page" />
+    <option name="LAST_COMMIT_MESSAGE" value="completed the ui of login page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

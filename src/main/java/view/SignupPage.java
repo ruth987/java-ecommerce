@@ -4,6 +4,7 @@ import controller.SignupController;
 import model.SignupModel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,6 +68,10 @@ public class SignupPage extends JFrame {
         // Create and set the signup button
         signupButton = new JButton("Sign Up");
         signupButton.setBounds(80, 270, 100, 30);
+        signupButton.setBackground(new Color(0, 122, 255));
+        signupButton.setForeground(Color.WHITE);
+        Border border = BorderFactory.createLineBorder(new Color(0, 122, 255), 2);
+        signupButton.setBorder(border);
         signupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,6 +86,10 @@ public class SignupPage extends JFrame {
         // Create and set the back button
         backButton = new JButton("Back");
         backButton.setBounds(200, 270, 100, 30);
+        backButton.setBackground(new Color(0, 122, 255));
+        backButton.setForeground(Color.WHITE);
+        Border border_ = BorderFactory.createLineBorder(new Color(0, 122, 255), 2);
+        backButton.setBorder(border_);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
