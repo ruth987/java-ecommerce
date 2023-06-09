@@ -82,6 +82,7 @@ public class ProductService {
                 int adminId = resultSet.getInt("adminId");
 
                 Product product = new Product(name, description, price, quantity, image, type, adminId);
+                product.setId(id);
                 productList.add(product);
             }
         } catch (SQLException e) {
@@ -152,5 +153,31 @@ public class ProductService {
         }
 
         return null; // Return null if no product is found with the given ID and admin ID
+    }
+
+    public List<Product> searchProductsByName(String searchQuery) {
+        List<Product> products = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM product WHERE name LIKE ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, "%" + searchQuery + "%");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Product product = new Product(
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getDouble("price"),
+                        resultSet.getInt("quantity"),
+                        resultSet.getString("image"),
+                        resultSet.getString("type"),
+                        resultSet.getInt("adminId")) ;
+                product.setId(resultSet.getInt("id"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 }

@@ -15,6 +15,7 @@ public class User {
 
     }
 
+
     public static User getInstance() {
         if (instance == null) {
             synchronized (User.class) {

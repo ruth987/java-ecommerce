@@ -24,7 +24,8 @@ public class CartPage extends JFrame {
     private JButton clearCartButton;
     private JButton buyButton;
     private JButton continueShoppingButton;
-    private JButton deleteSelectedButton; // Add delete button
+    private JButton deleteSelectedButton;
+    private JLabel totalPriceLabel;
 
     private Connection createConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/akecommerce";
@@ -37,7 +38,7 @@ public class CartPage extends JFrame {
     public CartPage() {
         super("Cart");
 
-        cartService = new CartService(); // Replace 'connection' with your actual database connection
+        cartService = new CartService();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(700, 500));
@@ -71,10 +72,6 @@ public class CartPage extends JFrame {
 
         clearCartButton = new JButton("Clear Cart");
         clearCartButton.addActionListener(e -> {
-            // Implement the logic to clear the cart
-            // For example: cartService.clearCart(user.getUserId());
-            // Then refresh the cart table
-
             try {
                 Connection conn = createConnection();
                 CartService.clearCart(conn, user.getUserId());
@@ -91,13 +88,10 @@ public class CartPage extends JFrame {
 
         buyButton = new JButton("Shop Now");
         buyButton.addActionListener(e -> {
-            // Implement the logic to complete the purchase
-            // For example: cartService.purchase(user.getUserId());
-            // Then show a confirmation message to the user
             JOptionPane.showMessageDialog(this, "Purchase successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
         });
 
-        continueShoppingButton = new JButton("Continue Shopping");
+        continueShoppingButton = new JButton("Continue");
         continueShoppingButton.addActionListener(e -> {
             ProductList productList = null;
             try {
@@ -108,34 +102,31 @@ public class CartPage extends JFrame {
             setVisible(false);
             productList.setVisible(true);
         });
-        // Add delete button
+
         deleteSelectedButton = new JButton("Delete Selected");
         deleteSelectedButton.addActionListener(e -> {
             int selectedRow = cartTable.getSelectedRow();
             if (selectedRow != -1) {
                 Cart cartItem = cartItems.get(selectedRow);
 
-                // Decrease the quantity of the selected item
                 int newQuantity = cartItem.getQuantity() - 1;
                 if (newQuantity <= 0) {
-                    // If the quantity becomes zero, delete the item from the cart
                     try {
                         CartService.removeItemFromCart(cartItem);
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
                 } else {
-                    // Update the quantity of the item in the cart
                     CartService.updateCartItemQuantity(cartItem, newQuantity);
                 }
 
-                // Refresh the cart table
                 refreshCartTable();
                 CartPage cartPage = new CartPage();
                 setVisible(false);
                 cartPage.setVisible(true);
             }
         });
+
         // Change button colors to blue
         backButton.setBackground(Color.BLUE);
         backButton.setForeground(Color.WHITE);
@@ -148,17 +139,25 @@ public class CartPage extends JFrame {
         deleteSelectedButton.setBackground(Color.BLUE);
         deleteSelectedButton.setForeground(Color.WHITE);
 
+        // Create the total price label
+        totalPriceLabel = new JLabel();
+        totalPriceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        updateTotalPriceLabel();
+
         // Add components to the main panel
         mainPanel.add(new JScrollPane(cartTable), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(deleteSelectedButton); // Add delete button
+        buttonPanel.add(deleteSelectedButton);
         buttonPanel.add(clearCartButton);
         buttonPanel.add(buyButton);
         buttonPanel.add(continueShoppingButton);
 
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(totalPriceLabel, BorderLayout.WEST);
+        bottomPanel.add(buttonPanel, BorderLayout.EAST);
 
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         backPanel.add(backButton);
@@ -170,7 +169,6 @@ public class CartPage extends JFrame {
     }
 
     private void createCartTable() {
-        // Remove the delete buttons from the table
         String[] columnNames = {"Product ID", "Product Name", "Quantity", "Price"};
         Object[][] data = new Object[cartItems.size()][4];
 
@@ -189,40 +187,44 @@ public class CartPage extends JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Make the table cells non-editable
                 return false;
             }
         };
 
-        // Create the table
         cartTable = new JTable(tableModel);
         cartTable.getTableHeader().setReorderingAllowed(false);
         cartTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         cartTable.setRowHeight(25);
 
-        // Set column widths
         cartTable.getColumnModel().getColumn(0).setPreferredWidth(100);
         cartTable.getColumnModel().getColumn(1).setPreferredWidth(200);
         cartTable.getColumnModel().getColumn(2).setPreferredWidth(100);
         cartTable.getColumnModel().getColumn(3).setPreferredWidth(100);
 
-        // Set table styling
         cartTable.setFont(new Font("Arial", Font.PLAIN, 14));
         cartTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
         cartTable.setGridColor(Color.LIGHT_GRAY);
 
-        // Set table alignment
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         cartTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         cartTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         cartTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 
-        // Enable vertical scrolling
+        cartTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    component.setBackground(row % 2 == 0 ? Color.WHITE : Color.LIGHT_GRAY);
+                }
+                return component;
+            }
+        });
+
         JScrollPane scrollPane = new JScrollPane(cartTable);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        // Add the scroll pane to the main panel
         mainPanel.add(scrollPane, BorderLayout.CENTER);
     }
 
@@ -237,20 +239,21 @@ public class CartPage extends JFrame {
     }
 
     private void refreshCartTable() {
-        // Refresh the cart items from the database
-        try {
-            cartItems = cartService.getCartItems(user.getUserId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception
-        }
-
-        // Create the cart table again
+        mainPanel.remove(cartTable);
         createCartTable();
-
-        // Repaint the main panel
         mainPanel.revalidate();
         mainPanel.repaint();
+        updateTotalPriceLabel();
     }
 
+    private void updateTotalPriceLabel() {
+        double totalPrice = 0;
+        for (Cart cartItem : cartItems) {
+            Product product = getProduct(cartItem.getProductId());
+            if (product != null) {
+                totalPrice += product.getPrice() * cartItem.getQuantity();
+            }
+        }
+        totalPriceLabel.setText("Total Price: $" + totalPrice);
+    }
 }

@@ -25,53 +25,69 @@ public class SignupPage extends JFrame {
         // Set the title of the frame
         setTitle("Sign Up");
         // Set the size of the frame
-        setSize(400, 400);
+        setSize(600, 400);
         // Set the layout to null
         setLayout(null);
 
-        // Create and set the title label
+        // Create the left panel
+        JPanel leftPanel = new JPanel();
+        leftPanel.setBackground(new Color(33, 97, 140));
+        leftPanel.setBounds(0, 0, 300, 400);
+        leftPanel.setLayout(null);
+        add(leftPanel);
+
+        // Create and set the title label in the left panel
         titleLabel = new JLabel("Sign Up");
-        titleLabel.setBounds(150, 50, 150, 30);
+        titleLabel.setBounds(0, 50, 300, 30);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        add(titleLabel);
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        leftPanel.add(titleLabel);
+
+        // Create the right panel
+        JPanel rightPanel = new JPanel();
+        rightPanel.setBackground(Color.WHITE);
+        rightPanel.setBounds(300, 0, 300, 400);
+        rightPanel.setLayout(null);
+        add(rightPanel);
 
         // Create and set the username label
         usernameLabel = new JLabel("Username:");
-        usernameLabel.setBounds(50, 100, 100, 30);
-        add(usernameLabel);
+        usernameLabel.setBounds(30, 100, 100, 30);
+        rightPanel.add(usernameLabel);
 
         // Create and set the username text field
         usernameField = new JTextField(username);
-        usernameField.setBounds(150, 100, 150, 30);
-        add(usernameField);
+        usernameField.setBounds(130, 100, 150, 30);
+        rightPanel.add(usernameField);
 
         // Create and set the password label
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(50, 150, 100, 30);
-        add(passwordLabel);
+        passwordLabel.setBounds(30, 150, 100, 30);
+        rightPanel.add(passwordLabel);
 
         // Create and set the password text field
         passwordField = new JPasswordField(password);
-        passwordField.setBounds(150, 150, 150, 30);
-        add(passwordField);
+        passwordField.setBounds(130, 150, 150, 30);
+        rightPanel.add(passwordField);
 
         // Create and set the email label
         emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(50, 200, 100, 30);
-        add(emailLabel);
+        emailLabel.setBounds(30, 200, 100, 30);
+        rightPanel.add(emailLabel);
 
         // Create and set the email text field
         emailField = new JTextField(email);
-        emailField.setBounds(150, 200, 150, 30);
-        add(emailField);
+        emailField.setBounds(130, 200, 150, 30);
+        rightPanel.add(emailField);
 
         // Create and set the signup button
         signupButton = new JButton("Sign Up");
-        signupButton.setBounds(80, 270, 100, 30);
-        signupButton.setBackground(new Color(0, 122, 255));
+        signupButton.setBounds(120, 270, 100, 30);
+        signupButton.setBackground(new Color(33, 97, 140));
         signupButton.setForeground(Color.WHITE);
-        Border border = BorderFactory.createLineBorder(new Color(0, 122, 255), 2);
-        signupButton.setBorder(border);
+        Border signupButtonBorder = BorderFactory.createLineBorder(new Color(33, 97, 140), 2);
+        signupButton.setBorder(signupButtonBorder);
         signupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,15 +97,15 @@ public class SignupPage extends JFrame {
                 sg.signup(username, password, email);
             }
         });
-        add(signupButton);
+        rightPanel.add(signupButton);
 
         // Create and set the back button
         backButton = new JButton("Back");
-        backButton.setBounds(200, 270, 100, 30);
-        backButton.setBackground(new Color(0, 122, 255));
+        backButton.setBounds(120, 320, 100, 30);
+        backButton.setBackground(new Color(33, 97, 140));
         backButton.setForeground(Color.WHITE);
-        Border border_ = BorderFactory.createLineBorder(new Color(0, 122, 255), 2);
-        backButton.setBorder(border_);
+        Border backButtonBorder = BorderFactory.createLineBorder(new Color(33, 97, 140), 2);
+        backButton.setBorder(backButtonBorder);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,14 +113,16 @@ public class SignupPage extends JFrame {
                 sg.showLoginPage();
             }
         });
-        add(backButton);
-
-        // Set the background color of the frame
-        getContentPane().setBackground(new Color(255, 255, 255));
+        rightPanel.add(backButton);
 
         // Set the frame to be visible
         setVisible(true);
         // Set the frame to exit on close
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        SignupPage signupPage = new SignupPage();
+        signupPage.setVisible(true);
     }
 }

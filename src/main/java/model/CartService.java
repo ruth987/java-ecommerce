@@ -139,7 +139,7 @@ public class CartService {
             int quantity = rs.getInt("quantity");
             String image = rs.getString("image");
             String type = rs.getString("type");
-            int adminId = rs.getInt("admin_id");
+            int adminId = rs.getInt("adminId");
             // Create and return the Product object
             return new Product(name, description, price, quantity, image, type, adminId);
         }

@@ -2,6 +2,7 @@ package view;
 import controller.LoginController;
 import model.LoginModel;
 import model.User;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class LoginPage extends JFrame {
-    private JLabel titleLabel, usernameLabel, passwordLabel;
+    private JLabel titleLabel, usernameLabel, passwordLabel, userLoginLabel;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton, signupButton, forgotPasswordButton;
@@ -27,43 +28,65 @@ public class LoginPage extends JFrame {
         // Set the title of the frame
         setTitle("Login");
         // Set the size of the frame
-        setSize(400, 350);
+        setSize(600, 350);
         // Set the layout to null
         setLayout(null);
 
-        // Create and set the title label
+        // Create the left panel
+        JPanel leftPanel = new JPanel();
+        leftPanel.setBackground(new Color(33, 97, 140));
+        leftPanel.setBounds(0, 0, 300, 350);
+        leftPanel.setLayout(null);
+        add(leftPanel);
+
+        // Create and set the user login label in the left panel
+        userLoginLabel = new JLabel("User Login");
+        userLoginLabel.setBounds(0, 150, 300, 30);
+        userLoginLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        userLoginLabel.setForeground(Color.WHITE);
+        userLoginLabel.setHorizontalAlignment(JLabel.CENTER);
+        leftPanel.add(userLoginLabel);
+
+        // Create the right panel
+        JPanel rightPanel = new JPanel();
+        rightPanel.setBackground(Color.WHITE);
+        rightPanel.setBounds(300, 0, 300, 350);
+        rightPanel.setLayout(null);
+        add(rightPanel);
+
+        // Create and set the title label in the right panel
         titleLabel = new JLabel("Login");
-        titleLabel.setBounds(150, 50, 150, 30);
+        titleLabel.setBounds(75, 20, 150, 30);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        add(titleLabel);
+        rightPanel.add(titleLabel);
 
         // Create and set the username label
         usernameLabel = new JLabel("Username:");
-        usernameLabel.setBounds(50, 100, 100, 30);
-        add(usernameLabel);
+        usernameLabel.setBounds(30, 80, 100, 30);
+        rightPanel.add(usernameLabel);
 
         // Create and set the username text field
         usernameField = new JTextField(username);
-        usernameField.setBounds(150, 100, 150, 30);
-        add(usernameField);
+        usernameField.setBounds(130, 80, 150, 30);
+        rightPanel.add(usernameField);
 
         // Create and set the password label
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(50, 150, 100, 30);
-        add(passwordLabel);
+        passwordLabel.setBounds(30, 130, 100, 30);
+        rightPanel.add(passwordLabel);
 
         // Create and set the password text field
         passwordField = new JPasswordField(password);
-        passwordField.setBounds(150, 150, 150, 30);
-        add(passwordField);
+        passwordField.setBounds(130, 130, 150, 30);
+        rightPanel.add(passwordField);
 
         // Create and set the login button
         loginButton = new JButton("Login");
-        loginButton.setBounds(80, 220, 80, 30);
-        loginButton.setBackground(new Color(0, 122, 255));
+        loginButton.setBounds(120, 220, 80, 30);
+        loginButton.setBackground(new Color(33, 97, 140));
         loginButton.setForeground(Color.WHITE);
-        Border border = BorderFactory.createLineBorder(new Color(0, 122, 255), 2);
-        loginButton.setBorder(border);
+        Border loginButtonBorder = BorderFactory.createLineBorder(new Color(33, 97, 140), 2);
+        loginButton.setBorder(loginButtonBorder);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,17 +107,16 @@ public class LoginPage extends JFrame {
                         JOptionPane.showMessageDialog(null, "Login failed");
                     }
                 }
-
             }
         });
-        add(loginButton);
+        rightPanel.add(loginButton);
 
         // Create and set the signup button
         signupButton = new JButton("Sign Up");
-        signupButton.setBounds(200, 220, 80, 30);
-        signupButton.setBackground(new Color(0, 122, 255));
+        signupButton.setBounds(120, 260, 80, 30);
+        signupButton.setBackground(new Color(33, 97, 140));
         signupButton.setForeground(Color.WHITE);
-        signupButton.setBorder(border);
+        signupButton.setBorder(loginButtonBorder);
         signupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,11 +126,7 @@ public class LoginPage extends JFrame {
                 }
             }
         });
-        add(signupButton);
-
-
-        // Set the background color of the frame
-        getContentPane().setBackground(new Color(255, 255, 255));
+        rightPanel.add(signupButton);
 
         // Set the frame to be visible
         setVisible(true);
@@ -119,7 +137,9 @@ public class LoginPage extends JFrame {
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
+
+    public static void main(String[] args) {
+        LoginPage loginPage = new LoginPage();
+        loginPage.setVisible(true);
+    }
 }
-
-
-

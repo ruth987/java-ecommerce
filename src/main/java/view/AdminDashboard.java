@@ -34,7 +34,7 @@ public class AdminDashboard extends JFrame {
         nameLabel.setFont(new Font("Arial", Font.BOLD, 24));
         nameLabel.setForeground(Color.WHITE);
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
-        nameLabel.setPreferredSize(new Dimension(50, 50));
+///       nameLabel.setPreferredSize(new Dimension(50, 50));
         nameLabel.setOpaque(true);
         nameLabel.setBackground(new Color(33, 97, 140));
         nameLabel.setBorder(BorderFactory.createLineBorder(new Color(33, 97, 140), 2));
@@ -51,8 +51,8 @@ public class AdminDashboard extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                AdminLoginPage ad = new AdminLoginPage();
-                ad.setVisible(true);
+                HomePage homePage = new HomePage();
+                homePage.setVisible(true);
             }
         });
         navBarPanel.add(logoutButton, BorderLayout.EAST);
