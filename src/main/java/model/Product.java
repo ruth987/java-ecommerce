@@ -7,6 +7,7 @@ public class Product {
     private double price;
     private int quantity;
     private String image;
+    private int admin_id;
 
     public Product(int id, String name, String description, double price, int quantity, String image) {
         this.id          = id;
@@ -76,5 +77,9 @@ public class Product {
 
     public String getProductDescription() {
         return description;
+    }
+
+    public int getAdminId() {
+        return admin_id;
     }
 }
