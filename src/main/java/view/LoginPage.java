@@ -120,3 +120,6 @@ public class LoginPage extends JFrame {
         this.loginController = loginController;
     }
 }
+
+
+
